@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.utils.translation import gettext_lazy as _
+
+from django.conf import settings
 
 # Create your models here.
-
 
 class MyAccountManager(BaseUserManager):
 
@@ -29,19 +29,19 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
-class Investor(AbstractBaseUser):
-
+class User(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
-    last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
+    username = None
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
-    object = MyAccountManager()
-
     USERNAME_FIELD = 'email'
+
+    REQUIRED_FIELDS = []
+
+    object = MyAccountManager()
 
     def __str__(self):
         return self.email
@@ -51,3 +51,22 @@ class Investor(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+
+class Investor(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+
+    date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
+    last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
+
+
+
+class Company(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+
+    company_name = models.CharField(verbose_name="company name", max_length=60, default="Missing")
+
+
+
