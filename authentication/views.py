@@ -83,9 +83,10 @@ def login_page(request):
             login(request, user)
 
             try:
-                obj = Investor.objects.get(user=user)
+                Investor.objects.get(user=user)
                 return redirect('http://127.0.0.1:8000/homeinvestor')
             except:
+                print("AAA")
                 return redirect('http://127.0.0.1:8000/homecompany')
 
             return redirect('home')
