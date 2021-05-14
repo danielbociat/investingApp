@@ -62,6 +62,8 @@ class Investor(models.Model):
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
+    funds = models.IntegerField(verbose_name="funds", default=0)
+
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 

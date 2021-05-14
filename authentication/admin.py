@@ -19,7 +19,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class InvestorAdmin(admin.ModelAdmin):
 
-    list_display = ('first_name', 'last_name', 'date_joined', 'last_login')
+    list_display = ('first_name', 'last_name', 'funds', 'date_joined', 'last_login')
     search_fields = ('is_admin',)
     readonly_fields = ('date_joined', 'last_login')
 
