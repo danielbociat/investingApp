@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -92,12 +93,13 @@
 
 <div class="w3-top">
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a href="http://127.0.0.1:8000/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
-    <a href="../homeinvestor" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home investor</a>
+    <a href="../homeinvestor" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
     <a href="../withdrawmoney" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Withdraw money</a>
       <a href="../buyshares" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Buy shares</a>
       <a href="../sellshares" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Sell shares</a>
       <a href="../checkfunds" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Check funds</a>
+      <a href="{%  url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="float:right"> Logout </a>
+    <span class="w3-bar-item w3-hide-small w3-padding-large" style="float:right">Hello, {{ request.user.investor.first_name }}</span>
   </div>
 </div>
 
@@ -133,4 +135,3 @@
 </body>
 
 
-</html>

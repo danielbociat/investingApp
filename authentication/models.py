@@ -54,19 +54,17 @@ class User(AbstractBaseUser):
 
 
 class Investor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,  primary_key=True)
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    first_name = models.CharField(verbose_name="first name", max_length=60, default="Missing")
+    last_name = models.CharField(verbose_name="last name", max_length=60, default="Missing")
 
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
-
-
 class Company(models.Model):
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     company_name = models.CharField(verbose_name="company name", max_length=60, default="Missing")
-
 
 
