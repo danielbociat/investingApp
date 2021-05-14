@@ -29,6 +29,9 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
+
+
+
 class User(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = None
@@ -62,11 +65,26 @@ class Investor(models.Model):
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
-    funds = models.IntegerField(verbose_name="funds", default=0)
+    funds = models.DecimalField(verbose_name="funds", default=0, max_digits=19, decimal_places=2)
+
 
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-
     company_name = models.CharField(verbose_name="company name", max_length=60, default="Missing")
+
+
+class Stock(models.Model):
+    company = models.OneToOneField(Company,on_delete=models.CASCADE, primary_key=True)
+    #name = models.CharField(verbose_name="name", max_length=6, default="XXXXXX", unique=True)
+    buy_price = models.DecimalField(verbose_name="buy price", max_digits=19, decimal_places=2)
+    sell_price = models.DecimalField(verbose_name="sell price", max_digits=19, decimal_places=2)
+
+
+class AcquiredStock(models.Model):
+    quantity = models.IntegerField(verbose_name="quantity")
+    stock = models.OneToOneField(Stock, verbose_name="stock", on_delete=models.CASCADE, primary_key=True)
+
+    investors = models.ForeignKey(Investor, on_delete=models.SET_NULL, null=True)
+
 
 

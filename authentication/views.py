@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 
 from .forms import RegisterUserForm, RegisterInvestorForm, RegisterCompanyForm
+from investorActions.forms import AddStock
 from authentication.models import Investor, Company, User
 from .decorators import unauthenticated_user
 # Create your views here.
@@ -49,13 +50,20 @@ def register_company(request):
     if request.method == 'POST':
         formUser = RegisterUserForm(request.POST)
         formCompany = RegisterCompanyForm(request.POST)
+        formStock = AddStock(request.POST)
 
-        if formUser.is_valid() and formCompany.is_valid():
+        if formUser.is_valid() and formCompany.is_valid() and formStock.is_valid():
             user_toSave = formUser.save()
             company_toSave = formCompany.save(commit=False)
+            stock_toSave = formStock.save(commit=False)
 
             company_toSave.user = user_toSave
             company_toSave.save()
+
+            stock_toSave.company = company_toSave
+            buy_price = formStock.cleaned_data.get('buy_price')
+            stock_toSave.sell_price = 99 * buy_price / 100
+            stock_toSave.save()
 
             email = formUser.cleaned_data.get('email')
             raw_password = formUser.cleaned_data.get('password1')
@@ -66,7 +74,8 @@ def register_company(request):
     else:
         formUser = RegisterUserForm(request.POST)
         formCompany = RegisterCompanyForm(request.POST)
-    return render(request, 'authentication/registerCompany.html', {'form': formUser, 'form2': formCompany})
+        formStock = AddStock(request.POST)
+    return render(request, 'authentication/registerCompany.html', {'form': formUser, 'form2': formCompany, 'form3': formStock})
 
 
 @unauthenticated_user
