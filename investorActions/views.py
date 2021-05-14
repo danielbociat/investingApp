@@ -4,26 +4,31 @@ from django.template import Context, loader
 # Create your views here.
 
 
-def homeinvestor(reuqest):
-    template = loader.get_template("investorActions/homeinvestor.html")
-    return HttpResponse(template.render())
+def homeinvestor(request):
+    template = "investorActions/homeinvestor.html"
+    return render(request, template)
+
 
 def depositmoney(request):
-    template = loader.get_template("investorActions/depositmoney.html")
-    return HttpResponse(template.render())
+    template = "investorActions/depositmoney.html"
+    return render(request, template)
+
 
 def withdrawmoney(request):
-    template = loader.get_template("investorActions/withdrawmoney.html")
-    return HttpResponse(template.render())
+    template = "investorActions/withdrawmoney.html"
+    return render(request, template)
+
 
 def checkfunds(request):
-    template = loader.get_template("investorActions/checkfunds.html")
-    return HttpResponse(template.render())
+    template = "investorActions/checkfunds.html"
+    return render(request, template)
+
 
 def buyshares(request):
-    template = loader.get_template("investorActions/buyshares.html")
-    return HttpResponse(template.render())
+    template = "investorActions/buyshares.html"
+    return render(request, template)
+
 
 def sellshares(request):
-    template = loader.get_template("investorActions/sellshares.html")
-    return HttpResponse(template.render())
+    template = "investorActions/sellshares.html"
+    return render(request, template)
