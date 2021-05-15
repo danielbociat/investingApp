@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from authentication.models import Investor, Company, User, Stock
+from authentication.models import Investor, Company, User, Stock, AcquiredStock
 
 # Register your models here.
 
@@ -42,11 +42,22 @@ class CompanyAdmin(admin.ModelAdmin):
     fieldsets = ()
 
 class StockAdmin(admin.ModelAdmin):
-    list_display = ('buy_price', 'sell_price')
+    list_display = ('available_quantity','buy_price', 'sell_price')
     search_fields = ()
     readonly_fields = ()
 
     ordering = ('buy_price',)
+
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+
+class AcquiredStockAdmin(admin.ModelAdmin):
+    list_display = ('quantity', 'stock', 'investors', )
+    search_fields = ()
+    readonly_fields = ()
+
+    ordering = ('stock',)
 
     filter_horizontal = ()
     list_filter = ()
@@ -57,5 +68,6 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Investor, InvestorAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Stock, StockAdmin)
+admin.site.register(AcquiredStock, AcquiredStockAdmin)
 
 
