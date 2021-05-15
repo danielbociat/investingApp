@@ -19,7 +19,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class InvestorAdmin(admin.ModelAdmin):
 
-    list_display = ('first_name', 'last_name', 'funds', 'date_joined', 'last_login')
+    list_display = ('first_name', 'last_name', 'funds', 'account_value' ,'date_joined', 'last_login')
     search_fields = ('is_admin',)
     readonly_fields = ('date_joined', 'last_login')
 
@@ -31,7 +31,7 @@ class InvestorAdmin(admin.ModelAdmin):
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('company_name',)
+    list_display = ('company_name', )
     search_fields = ('is_admin',)
     readonly_fields = ()
 
@@ -42,7 +42,7 @@ class CompanyAdmin(admin.ModelAdmin):
     fieldsets = ()
 
 class StockAdmin(admin.ModelAdmin):
-    list_display = ('available_quantity','buy_price', 'sell_price')
+    list_display = ('company',  'available_quantity','buy_price', 'sell_price')
     search_fields = ()
     readonly_fields = ()
 

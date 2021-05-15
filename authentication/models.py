@@ -64,6 +64,7 @@ class Investor(models.Model):
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
     funds = models.DecimalField(verbose_name="funds", default=0, max_digits=19, decimal_places=2)
+    account_value = models.DecimalField(verbose_name="account value", default=0, max_digits=19, decimal_places=2)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -72,6 +73,9 @@ class Investor(models.Model):
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     company_name = models.CharField(verbose_name="company name", max_length=60, default="Missing")
+
+    def __str__(self):
+        return self.company_name
 
 
 class Stock(models.Model):
