@@ -8,7 +8,7 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 
 from .forms import RegisterUserForm, RegisterInvestorForm, RegisterCompanyForm
-from investorActions.forms import AddStock
+from companyActions.forms import RegisterStock
 from authentication.models import Investor, Company, User
 from .decorators import unauthenticated_user
 # Create your views here.
@@ -50,7 +50,7 @@ def register_company(request):
     if request.method == 'POST':
         formUser = RegisterUserForm(request.POST)
         formCompany = RegisterCompanyForm(request.POST)
-        formStock = AddStock(request.POST)
+        formStock = RegisterStock(request.POST)
 
         if formUser.is_valid() and formCompany.is_valid() and formStock.is_valid():
             user_toSave = formUser.save()
@@ -74,7 +74,7 @@ def register_company(request):
     else:
         formUser = RegisterUserForm(request.POST)
         formCompany = RegisterCompanyForm(request.POST)
-        formStock = AddStock(request.POST)
+        formStock = RegisterStock(request.POST)
     return render(request, 'authentication/registerCompany.html', {'form': formUser, 'form2': formCompany, 'form3': formStock})
 
 

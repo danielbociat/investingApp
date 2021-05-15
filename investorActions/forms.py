@@ -1,7 +1,7 @@
 from authentication.models import User, Investor, Stock, AcquiredStock
 from django import forms
 from django.db import models
-
+import itertools
 
 class DepositFunds(forms.Form):
     amount = forms.DecimalField(max_digits=19, decimal_places=2)
@@ -20,8 +20,13 @@ class WithdrawFunds(forms.Form):
 
 
 class BuyStock(forms.ModelForm):
-    stocks = Stock.objects.all()
-    stocks_selection = forms.Select(choices=stocks)
+
+    all_stocks = Stock.objects.all()
+
+    try:
+        stock = forms.Select(choices=all_stocks)
+    except:
+        stock = None
     quantity = forms.DecimalField(max_digits=19, decimal_places=2)
 
     class Meta:
@@ -29,9 +34,3 @@ class BuyStock(forms.ModelForm):
         fields = ("stock", "quantity")
 
 
-class AddStock(forms.ModelForm):
-    buy_price = forms.DecimalField(max_digits=19, decimal_places=2)
-
-    class Meta:
-        model = Stock
-        fields = ("buy_price", )

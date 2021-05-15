@@ -7,6 +7,7 @@ from django.conf import settings
 
 
 class MyAccountManager(BaseUserManager):
+
     def create_user(self, email, password=None):
         if not email:
             raise ValueError("Users must have an email address")
@@ -64,6 +65,9 @@ class Investor(models.Model):
 
     funds = models.DecimalField(verbose_name="funds", default=0, max_digits=19, decimal_places=2)
 
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
 
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -72,15 +76,18 @@ class Company(models.Model):
 
 class Stock(models.Model):
     company = models.OneToOneField(Company,on_delete=models.CASCADE, primary_key=True)
+    available_quantity = models.DecimalField(verbose_name="available quantity", max_digits=19, decimal_places=2, default=0)
     #name = models.CharField(verbose_name="name", max_length=6, default="XXXXXX", unique=True)
     buy_price = models.DecimalField(verbose_name="buy price", max_digits=19, decimal_places=2)
     sell_price = models.DecimalField(verbose_name="sell price", max_digits=19, decimal_places=2)
 
+    def __str__(self):
+        return self.company.company_name
+
 
 class AcquiredStock(models.Model):
     quantity = models.IntegerField(verbose_name="quantity")
-    stock = models.OneToOneField(Stock, verbose_name="stock", on_delete=models.CASCADE, primary_key=True)
-
+    stock = models.ForeignKey(Stock, verbose_name="stock", on_delete=models.CASCADE)
     investors = models.ForeignKey(Investor, on_delete=models.SET_NULL, null=True)
 
 
