@@ -15,14 +15,14 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #7abecc !important;
+			background: #363945 !important;
 		}
 		.user_card {
-            height: 750px;
-			width: 750px;
+            height: 550px;
+			width: 550px;
 			margin-top: auto;
 			margin-bottom: auto;
-			background: #74cfbf;
+			background: #363945;
 			position: relative;
 			display: flex;
 			justify-content: center;
@@ -44,10 +44,11 @@
 
 		}
 
-		.login_btn {
-			width: 100%;
+			.login_btn {
+			width: 80%;
 			background: #33ccff !important;
 			color: white !important;
+            font-size: 2rem;
 		}
 		.login_btn:focus {
 			box-shadow: none !important;
@@ -74,6 +75,9 @@
 			padding: 10px;
 			margin-top: 10px;
 		}
+        h5{
+            color: white;
+        }
 	</style>
 
     <meta charset="UTF-8">
@@ -91,8 +95,9 @@
 </head>
 <body>
 
-<div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+<div class="w3-top"  style="background-color: #33ccff">
+  <div class="w3-bar w3-card w3-left-align w3-large" style="color: white">
+
     <a href="../homeinvestor" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
     <a href="../depositmoney" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Deposit money</a>
       <a href="../buyshares" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Buy shares</a>
@@ -115,6 +120,7 @@
 				</div>
                 <form method="POST" action="">
                     {% csrf_token %}
+                    <pre>
                     <div class="d-flex justify-content-center form_container">
                          <h5>How much money would you like to withdraw?</h5>
                     </div>
@@ -126,6 +132,7 @@
                     <div class="d-flex justify-content-center mt-3 login_container">
                         <input class="btn login_btn" type="submit" value="Withdraw">
                     </div>
+                    </pre>
                 </form>
 
 

@@ -14,14 +14,14 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #7abecc !important;
+			background: #363945 !important;
 		}
 		.user_card {
             height: 250px;
 			width: 450px;
 			margin-top: auto;
 			margin-bottom: auto;
-			background: #74cfbf;
+			background: #363945;
 			position: relative;
 			display: flex;
 			justify-content: center;
@@ -73,6 +73,9 @@
 			padding: 10px;
 			margin-top: 10px;
 		}
+        h3{
+            color: white;
+        }
 	</style>
 
     <meta charset="UTF-8">
@@ -90,8 +93,9 @@
 </head>
 <body>
 
-<div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+<div class="w3-top"  style="background-color: #33ccff">
+  <div class="w3-bar w3-card w3-left-align w3-large" style="color: white">
+
       <a href="../homeinvestor" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
     <a href="../depositmoney" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Deposit money</a>
     <a href="../withdrawmoney" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Withdraw money</a>
@@ -113,7 +117,7 @@
 
 				</div>
 				<div class="d-flex justify-content-center form_container">
-                     <h5>Funds available: {{ request.user.investor.funds }}</h5>
+                     <h3>Funds available: {{ request.user.investor.funds }}</h3>
 
 
 				</div>
