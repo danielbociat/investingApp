@@ -13,13 +13,13 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #7abecc !important;
+			background: #363945 !important;
 		}
 		.user_card {
 			width: 350px;
 			margin-top: auto;
 			margin-bottom: auto;
-			background: #74cfbf;
+			background: #363945;
 			position: relative;
 			display: flex;
 			justify-content: center;
@@ -62,7 +62,9 @@
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
-
+        h6{
+            color: white;
+        }
 	</style>
 
 </head>
@@ -83,14 +85,6 @@
 							</div>
                             {{form2.company_name}}
 						</div>
-
-                        <div class="input-group mb-2">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-money-bill-alt"></i></span>
-							</div>
-							{{ form3.buy_price }}
-						</div>
-
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
@@ -117,9 +111,9 @@
 				</div>
 
 				<div class="mt-4">
-					<div class="d-flex justify-content-center links">
+					<h6 class="d-flex justify-content-center links">
 						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
-					</div>
+					</h6>
 				</div>
 			</div>
 		</div>
@@ -132,10 +126,9 @@
 		//Query All input fields
 		var form_fields = document.getElementsByTagName('input')
 		form_fields[1].placeholder='Company name..';
-		form_fields[2].placeholder='Price...';
-        form_fields[3].placeholder='Email..';
-		form_fields[4].placeholder='Enter password...';
-		form_fields[5].placeholder='Re-enter Password...';
+        form_fields[2].placeholder='Email..';
+		form_fields[3].placeholder='Enter password...';
+		form_fields[4].placeholder='Re-enter Password...';
 
 
 		for (var field in form_fields){
