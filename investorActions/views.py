@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import Context, loader
-from .forms import DepositFunds, WithdrawFunds
-from authentication.models import Investor
+from .forms import DepositFunds, WithdrawFunds, BuyStock
+from authentication.models import Investor, Stock, Company
 # Create your views here.
 
 
@@ -51,7 +51,22 @@ def checkfunds(request):
 
 def buyshares(request):
     template = "investorActions/buyshares.html"
-    return render(request, template)
+    stocks = Stock.objects.all()
+
+    if request.method == 'POST':
+        formAcquire = BuyStock(request.POST)
+        if formAcquire.is_valid():
+            quantity = BuyStock.cleaned_data.get('quantity')
+            stock = BuyStock.cleaned_data.get('stock')
+            investor = request.user.investor
+
+            BuyStock.save()
+
+            return redirect('checkfunds')
+    else:
+        formAcquire = BuyStock(request.POST)
+
+    return render(request, template, {'stocksForm':formAcquire})
 
 
 def sellshares(request):
