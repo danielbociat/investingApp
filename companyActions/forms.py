@@ -11,7 +11,7 @@ class RegisterStock(forms.ModelForm):
         fields = ("buy_price", )
 
 
-class AddStock(forms.ModelForm):
+class AddRemoveStock(forms.ModelForm):
     quantity = forms.DecimalField(max_digits=19, decimal_places=2)
 
     class Meta:

@@ -19,12 +19,12 @@ class WithdrawFunds(forms.Form):
         fields = ("amount", )
 
 
-class BuyStock(forms.ModelForm):
+class BuySellStock(forms.ModelForm):
 
     all_stocks = Stock.objects.all()
 
     try:
-        stock = forms.Select(choices=all_stocks)
+        stock = forms.CharField(widget=forms.Select, choices=all_stocks)
     except:
         stock = None
     quantity = forms.DecimalField(max_digits=19, decimal_places=2)

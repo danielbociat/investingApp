@@ -18,8 +18,8 @@
 			background: #363945 !important;
 		}
 		.user_card {
-            height: 950px;
-			width: 750px;
+            height: 75%;
+            width: 50%;
 			margin-top: auto;
 			margin-bottom: auto;
 			background: #363945;
@@ -79,6 +79,8 @@
             color: white;
         }
         h4{
+            margin-right: auto;
+            margin-left: auto;
             color: white;
         }
         .dropdown{
@@ -89,6 +91,8 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+
 	</style>
 
     <meta charset="UTF-8">
@@ -120,7 +124,7 @@
 </div>
 
 
-	<div class="container h-100">
+	<div class="container h-100" style="overflow: hidden">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
@@ -129,38 +133,33 @@
 					<h1 id="form-title">Sell shares</h1>
 
 				</div>
-                <pre>
 
                     <div class="d-flex justify-content-center form_container">
-                        <h5>What shares would you like to buy?</h5>
+                        <h5>What shares would you like to sell?</h5>
                     </div>
 
 
-                    <form>
+                    <form method="POST" action="">
+                        {% csrf_token %}
                         <label for="stock"><h4>Stock:</h4></label>
-                            <select id="stock" name="stock" class="dropdown">
-                                <option value="APL">APL</option>
-                                <option value="TSL">TSL</option>
-                                <option value="AMZ">AMZ</option>
-                                <option value="BMW">BMW</option>
-                            </select>
+
+                        <table>
+                               {{formAcquire.stock}}
+                        </table>
+
+
+                        <div class="d-flex justify-content-center form_container">
+                            <h5>How many shares would you like to sell?</h5>
+                        </div>
+
+                       <div class="box">
+                           {{ formAcquire.quantity }}
+                       </div>
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <input class="btn login_btn" type="submit" value="Sell">
+                        </div>
                     </form>
-				<div class="d-flex justify-content-center form_container">
-                     <h5>How many shares would you like to sell?</h5>
 
-
-				</div>
-
-                <div>
-                    <input type="number" name="sum" placeholder="Sell..." class="form-control">
-
-                </div>
-
-                <div class="d-flex justify-content-center mt-3 login_container">
-                    <input class="btn login_btn" type="submit" value="Sell">
-                </div>
-
-                </pre>
 			</div>
 		</div>
 	</div>
