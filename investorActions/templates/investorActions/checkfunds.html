@@ -17,8 +17,8 @@
 			background: #363945 !important;
 		}
 		.user_card {
-            height: 250px;
-			width: 450px;
+            height: 20%;
+			width: 40%;
 			margin-top: auto;
 			margin-bottom: auto;
 			background: #363945;
@@ -108,12 +108,10 @@
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
-				<div class="d-flex justify-content-center">
-					<h1 id="form-title">Check funds</h1>
-				</div>
 				<div class="d-flex justify-content-center form_container">
                      <h3>Free funds: {{ request.user.investor.funds }} </h3>
 				</div>
+                <br>  </br>
                 <div class="d-flex justify-content-center form_container">
                  <h3>Account value: {{ request.user.investor.account_value }}</h3>
                 </div>

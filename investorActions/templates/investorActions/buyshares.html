@@ -18,7 +18,7 @@
 			background: #363945 !important;
 		}
 		.user_card {
-            height: 75%;
+            height: 50%;
             width: 50%;
 			margin-top: auto;
 			margin-bottom: auto;
@@ -133,13 +133,13 @@
 					<h1 id="form-title">Buy shares</h1>
 
 				</div>
-
+                <br>  </br>
                     <div class="d-flex justify-content-center form_container">
                         <h5>What shares would you like to buy?</h5>
                     </div>
 
-
-                    <form method="POST" action="">
+                    <br>  </br>
+                    <form method="POST" action="" style="text-align: center">
                         {% csrf_token %}
                         <label for="stock"><h4>Stock:</h4></label>
 
@@ -151,10 +151,11 @@
                         <div class="d-flex justify-content-center form_container">
                             <h5>How many shares would you like to buy?</h5>
                         </div>
-
+                        <br>  </br>
                        <div class="box">
                            {{ formAcquire.quantity }}
                        </div>
+                        <br>  </br>
                         <div class="d-flex justify-content-center mt-3 login_container">
                             <input class="btn login_btn" type="submit" value="Buy">
                         </div>

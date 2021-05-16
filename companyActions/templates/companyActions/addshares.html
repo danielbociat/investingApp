@@ -17,8 +17,8 @@
 			background: #363945 !important;
 		}
 		.user_card {
-            height: 600px;
-			width: 550px;
+            height: 40%;
+			width: 50%;
 			margin-top: auto;
 			margin-bottom: auto;
 			background: #363945;
@@ -99,6 +99,7 @@
 
     <a href="../homecompany" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
     <a href="../removeshares" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Remove shares</a>
+      <a href="../info" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Stock info</a>
     <a href="{%  url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="float:right"> Logout </a>
   </div>
 </div>
@@ -113,26 +114,27 @@
 					<h1 id="form-title">Add shares</h1>
 
 				</div>
-                <pre>
+                <br>  </br>
 				<div class="d-flex justify-content-center form_container">
                      <h5>How many shares would you like to add?</h5>
 
 
 				</div>
-                <form method="POST" action="">
+                <br>  </br>
+                <form method="POST" action="" style="text-align: center">
                     {% csrf_token %}
 
                     <div class="box">
                        {{ formAddStock.quantity }}
                     </div>
 
-
+                    <br>  </br>
+                    <br>  </br>
                     <div class="d-flex justify-content-center mt-3 login_container">
                         <input class="btn login_btn" type="submit" value="Add">
                     </div>
                 </form>
 
-                </pre>
 
 			</div>
 		</div>
