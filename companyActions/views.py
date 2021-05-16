@@ -22,7 +22,7 @@ def homecompany(request):
 def addshares(request):
     template = "companyActions/addshares.html"
     if request.method == "POST":
-        AddStockForm = AddStock(request.POST)
+        AddStockForm = AddRemoveStock(request.POST)
 
         if AddStockForm.is_valid():
             quantity = AddStockForm.cleaned_data.get("quantity")
@@ -33,7 +33,7 @@ def addshares(request):
 
         return redirect('homecompany')
     else:
-        AddStockForm = AddStock(request.POST)
+        AddStockForm = AddRemoveStock(request.POST)
 
     return render(request, template, {'formAddStock': AddStockForm})
 
@@ -43,3 +43,23 @@ def removeshares(request):
     template = "companyActions/removeshares.html"
     if request.method == "POST":
         RemoveStockForm = AddRemoveStock(request.POST)
+        if RemoveStockForm.is_valid():
+            quantity = RemoveStockForm.cleaned_data.get("quantity")
+            obj = Stock.objects.get(company=request.user.company)
+            max_quant = obj.available_quantity
+            if quantity >= 0 and quantity <= max_quant:
+                obj.available_quantity = obj.available_quantity - quantity
+                obj.save()
+            else:
+                print("Wrong quantity")
+        return redirect('homecompany')
+    else:
+        RemoveStockForm = AddRemoveStock(request.POST)
+    return render(request, template, {'formRemoveStock': RemoveStockForm})
+
+
+@login_required(login_url='login')
+@allowed_users("company")
+def info(request):
+    template = "companyActions/info.html"
+    return render(request, template)
