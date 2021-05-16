@@ -89,6 +89,11 @@ def buyshares(request):
             request.user.investor.funds = request.user.investor.funds - quantity * stock.buy_price
             request.user.investor.save()
 
+            stock.buy_price = float(stock.buy_price) * (1.001) ** float(quantity)
+            stock.sell_price = 99 * stock.buy_price / 100
+            stock.available_quantity = max_quant - quantity
+            stock.save()
+
             new_val = 0
             for inv in Investor.objects.all():
                 new_val = inv.funds
@@ -97,11 +102,6 @@ def buyshares(request):
                     new_val = new_val + aq.quantity * st.sell_price
                 inv.account_value = new_val
                 inv.save()
-
-            stock.buy_price = float(stock.buy_price) * (1.001) ** float(quantity)
-            stock.sell_price = 99 * stock.buy_price / 100
-            stock.available_quantity = max_quant - quantity
-            stock.save()
 
             return redirect('checkfunds')
         else:
