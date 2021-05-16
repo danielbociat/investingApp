@@ -58,11 +58,13 @@ def register_company(request):
             stock_toSave = formStock.save(commit=False)
 
             company_toSave.user = user_toSave
-            company_toSave.save()
+
 
             stock_toSave.company = company_toSave
             buy_price = formStock.cleaned_data.get('buy_price')
             stock_toSave.sell_price = 99 * buy_price / 100
+
+            company_toSave.save()
             stock_toSave.save()
 
             email = formUser.cleaned_data.get('email')

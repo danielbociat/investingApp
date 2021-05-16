@@ -99,7 +99,8 @@ def buyshares(request):
                 new_val = inv.funds
                 for aq in AcquiredStock.objects.filter(investors=inv):
                     st = aq.stock
-                    new_val = new_val + aq.quantity * st.sell_price
+                    if aq.investors == inv:
+                        new_val = new_val + aq.quantity * st.sell_price
                 inv.account_value = new_val
                 inv.save()
 
@@ -146,7 +147,8 @@ def sellshares(request):
                         new_val = inv.funds
                         for aq in AcquiredStock.objects.filter(investors=inv):
                             st = aq.stock
-                            new_val = new_val + aq.quantity * st.sell_price
+                            if aq.investors == inv:
+                                new_val = new_val + aq.quantity * st.sell_price
                         inv.account_value = new_val
                         inv.save()
 
