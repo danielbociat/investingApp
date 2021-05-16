@@ -6,6 +6,7 @@ from authentication.models import Investor, Stock, Company, AcquiredStock
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 from authentication.decorators import allowed_users, unauthenticated_user
+from django.contrib import messages
 
 
 @login_required(login_url='login')
@@ -31,8 +32,12 @@ def depositmoney(request):
                     obj.save()
                 except:
                     return redirect("depositmoney")
+            else:
+                messages.error(request, "Please enter a positive value")
+                return redirect('depositmoney')
             return redirect('checkfunds')
         else:
+            messages.error(request, "Please enter a valid amount")
             return redirect("depositmoney")
     else:
         formAmount = DepositFunds(request.POST)
@@ -56,8 +61,16 @@ def withdrawmoney(request):
                     obj.save()
                 except:
                     return redirect("withdrawmoney")
+            elif  amount < 0:
+                messages.error(request, 'Please enter a positive value')
+                return redirect('withdrawmoney')
+            elif amount > request.user.investor.funds:
+                messages.error(request, 'Insufficient funds')
+                return redirect('withdrawmoney')
             return redirect('checkfunds')
+
         else:
+            messages.error(request, 'Please enter a valid amount')
             return redirect("withdrawmoney")
     else:
         formAmount = WithdrawFunds()
@@ -88,12 +101,12 @@ def buyshares(request):
             max_quant = stock.available_quantity
 
             if quantity > max_quant:
-                print("Quantity too big")
-                return redirect('homeinvestor')
+                messages.error(request, 'Not enough shares available')
+                return redirect('buyshares')
 
             if quantity * stock.buy_price > request.user.investor.funds:
-                print("Insufficient funds")
-                return redirect('homeinvestor')
+                messages.error(request, 'Insufficient funds')
+                return redirect('buyshares')
 
             if not AcquiredStock.objects.filter(investors=request.user.investor, stock=stock):
                 acquire_toSave.save()
@@ -124,7 +137,8 @@ def buyshares(request):
 
             return redirect('checkfunds')
         else:
-            return redirect('homeinvestor')
+            messages.error(request, "Invalid")
+            return redirect('sellshares')
     else:
         formAcquire = BuySellStock(request.POST)
 
@@ -144,14 +158,17 @@ def sellshares(request):
             acquire_toSave.investors = request.user.investor
 
             if not AcquiredStock.objects.filter(investors=request.user.investor, stock=stock):
-                print("Stock not owned")
-                return redirect('homeinvestor')
+                messages.error(request, "Share not owned")
+                return redirect('sellshares')
             else:
                 obj = AcquiredStock.objects.get(investors=request.user.investor, stock=stock)
                 max_quant = obj.quantity
                 if quantity > max_quant:
-                    print("Quantity too big")
-                    return redirect('homeinvestor')
+                    messages.error(request, "Insufficient shares")
+                    return redirect('sellshares')
+                elif quantity < 0:
+                    messages.error(request, "Please enter a positive value")
+                    return redirect('sellshares')
                 else:
                     obj.quantity = obj.quantity - quantity
                     if obj.quantity == 0:
@@ -180,7 +197,8 @@ def sellshares(request):
 
             return redirect('checkfunds')
         else:
-            return redirect('homeinvestor')
+            messages.error(request, "Invalid")
+            return redirect('sellshares')
     else:
         formAcquire = BuySellStock(request.POST)
 

@@ -109,9 +109,12 @@
 
 				</div>
 
-				{% for message in messages %}
-					<p id="messages"> {{message}} </p>
-				{% endfor %}
+				<div>
+                     <br> </br>
+                    {% include 'companyActions/messages.html' %}
+
+                    {% block content %} {% endblock content %}
+                </div>
 
 				<h6 class="mt-4">
 					<h6 class="d-flex justify-content-center ml-2">

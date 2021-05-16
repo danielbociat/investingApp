@@ -7,7 +7,7 @@ from authentication.models import Stock, Company, User
 from companyActions.forms import AddRemoveStock
 from django.contrib.auth.decorators import login_required
 from authentication.decorators import allowed_users, unauthenticated_user
-
+from django.contrib import messages
 # Create your views here.
 
 
@@ -30,8 +30,13 @@ def addshares(request):
                 obj = Stock.objects.get(company=request.user.company)
                 obj.available_quantity = obj.available_quantity + quantity
                 obj.save()
-
-        return redirect('homecompany')
+            else:
+                messages.error(request, "Please enter a positive value")
+                return redirect('addshares')
+        else:
+            messages.error(request, "Please enter a valid amount")
+            return redirect('addshares')
+        return redirect('info')
     else:
         AddStockForm = AddRemoveStock(request.POST)
 
@@ -50,9 +55,16 @@ def removeshares(request):
             if quantity >= 0 and quantity <= max_quant:
                 obj.available_quantity = obj.available_quantity - quantity
                 obj.save()
-            else:
-                print("Wrong quantity")
-        return redirect('homecompany')
+            elif quantity < 0:
+                messages.error(request, "Please enter a positive value")
+                return redirect('removeshares')
+            elif quantity > max_quant:
+                messages.error(request, "Insufficient shares")
+                return redirect('removeshares')
+        else:
+            messages.error(request, "Please enter a valid amount")
+            return redirect('removeshares')
+        return redirect('info')
     else:
         RemoveStockForm = AddRemoveStock(request.POST)
     return render(request, template, {'formRemoveStock': RemoveStockForm})

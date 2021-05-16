@@ -103,7 +103,7 @@ def login_page(request):
             return redirect('home')
 
         else:
-            messages.info(request, 'email OR password is incorrect')
+            messages.error(request, 'Invalid credentials')
             return render(request, 'authentication/login.html', context)
 
     return render(request, 'authentication/login.html', context)
