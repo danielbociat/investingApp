@@ -153,6 +153,7 @@ def sellshares(request):
                     stock.buy_price = float(stock.buy_price) * (0.999)**float(quantity)
                     stock.sell_price = 99 * stock.buy_price / 100
                     stock.available_quantity = max_quant + quantity
+
                     stock.save()
 
             return redirect('checkfunds')

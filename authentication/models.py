@@ -69,6 +69,9 @@ class Investor(models.Model):
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+    def validFunds(self):
+        return len(str(self.funds))<=19 and self.funds>=0
+
 
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -88,11 +91,19 @@ class Stock(models.Model):
     def __str__(self):
         return self.company.company_name
 
+    def validPrice(self):
+        return len(str(self.sell_price))<=19 and self.sell_price>=0 and len(str(self.buy_price))<=19 and self.buy_price>=0
+
+    def validQuantity(self):
+        return len(str(self.available_quantity))<=19 and self.available_quantity>=0
+
 
 class AcquiredStock(models.Model):
     quantity = models.IntegerField(verbose_name="quantity")
     stock = models.ForeignKey(Stock, verbose_name="stock", on_delete=models.CASCADE)
     investors = models.ForeignKey(Investor, on_delete=models.SET_NULL, null=True)
 
+    def validQuantity(self):
+        return len(str(self.quantity))<=19 and self.quantity>=0
 
 
