@@ -35,5 +35,9 @@ def addshares(request):
     return HttpResponse(template.render())
 
 def removeshares(request):
-    template = loader.get_template("companyActions/removeshares.html")
-    return HttpResponse(template.render())
+    template = "companyActions/removeshares.html"
+    return render(request, template)
+
+def info(request):
+    template = "companyActions/info.html"
+    return render(request, template)
