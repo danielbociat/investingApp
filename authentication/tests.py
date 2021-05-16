@@ -3,6 +3,7 @@ from .models import *
 
 # Create your tests here.
 
+
 class InvestorModelTests(TestCase):
     def test_funds_too_big(self):
         investor = Investor(funds=10**20)
@@ -11,6 +12,7 @@ class InvestorModelTests(TestCase):
     def test_funds_negative(self):
         investor = Investor(funds=-100)
         self.assertIs(investor.validFunds(), False)
+
 
 class StockModelTests(TestCase):
     def test_buy_value_too_big(self):
@@ -36,6 +38,7 @@ class StockModelTests(TestCase):
     def test_available_quantity_negative(self):
         stock = Stock(available_quantity=-100)
         self.assertIs(stock.validQuantity(), False)
+
 
 class AcquiredStockTests(TestCase):
     def test_quantity_too_big(self):

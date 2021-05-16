@@ -27,8 +27,11 @@ def depositmoney(request):
                 obj = Investor.objects.get(user=request.user)
                 obj.funds = request.user.investor.funds + amount
                 obj.account_value = request.user.investor.account_value + amount
-                obj.save()
-            return redirect('homeinvestor')
+                try:
+                    obj.save()
+                except:
+                    return redirect("depositmoney")
+            return redirect('checkfunds')
         else:
             return redirect("depositmoney")
     else:
@@ -49,8 +52,11 @@ def withdrawmoney(request):
                 obj = Investor.objects.get(user=request.user)
                 obj.funds=request.user.investor.funds-amount
                 obj.account_value=request.user.investor.account_value-amount
-                obj.save()
-            return redirect('homeinvestor')
+                try:
+                    obj.save()
+                except:
+                    return redirect("withdrawmoney")
+            return redirect('checkfunds')
         else:
             return redirect("withdrawmoney")
     else:
@@ -122,7 +128,7 @@ def buyshares(request):
     else:
         formAcquire = BuySellStock(request.POST)
 
-    return render(request, template, {'formAcquire':formAcquire})
+    return render(request, template, {'formAcquire': formAcquire})
 
 
 @login_required(login_url='login')
