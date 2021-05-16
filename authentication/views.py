@@ -53,12 +53,12 @@ def register_company(request):
         formStock = RegisterStock(request.POST)
 
         if formUser.is_valid() and formCompany.is_valid() and formStock.is_valid():
+
             user_toSave = formUser.save()
             company_toSave = formCompany.save(commit=False)
             stock_toSave = formStock.save(commit=False)
 
             company_toSave.user = user_toSave
-
 
             stock_toSave.company = company_toSave
             buy_price = formStock.cleaned_data.get('buy_price')
@@ -108,12 +108,11 @@ def login_page(request):
 
     return render(request, 'authentication/login.html', context)
 
-
 def logout_page(request):
     logout(request)
     return redirect('login')
 
-
+@unauthenticated_user
 def home(request):
     context = {}
     template = loader.get_template('authentication/home.html')

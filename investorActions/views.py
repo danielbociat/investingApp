@@ -4,13 +4,19 @@ from django.template import Context, loader
 from .forms import DepositFunds, WithdrawFunds, BuySellStock
 from authentication.models import Investor, Stock, Company, AcquiredStock
 # Create your views here.
+from django.contrib.auth.decorators import login_required
+from authentication.decorators import allowed_users, unauthenticated_user
 
 
+@login_required(login_url='login')
+@allowed_users("investor")
 def homeinvestor(request):
     template = "investorActions/homeinvestor.html"
     return render(request, template)
 
 
+@login_required(login_url='login')
+@allowed_users("investor")
 def depositmoney(request):
     template = "investorActions/depositmoney.html"
     if request.method == 'POST':
@@ -31,6 +37,8 @@ def depositmoney(request):
     return render(request, template, {'formAmount':formAmount})
 
 
+@login_required(login_url='login')
+@allowed_users("investor")
 def withdrawmoney(request):
     template = "investorActions/withdrawmoney.html"
     if request.method == 'POST':
@@ -51,11 +59,15 @@ def withdrawmoney(request):
     return render(request, template, {'formAmount':formAmount})
 
 
+@login_required(login_url='login')
+@allowed_users("investor")
 def checkfunds(request):
     template = "investorActions/checkfunds.html"
     return render(request, template)
 
 
+@login_required(login_url='login')
+@allowed_users("investor")
 def buyshares(request):
     template = "investorActions/buyshares.html"
     if request.method == 'POST':
@@ -113,6 +125,8 @@ def buyshares(request):
     return render(request, template, {'formAcquire':formAcquire})
 
 
+@login_required(login_url='login')
+@allowed_users("investor")
 def sellshares(request):
     template = "investorActions/sellshares.html"
     if request.method == 'POST':
