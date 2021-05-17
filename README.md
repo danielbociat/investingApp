@@ -1,6 +1,6 @@
 # investingApp
 
-Students: Daniel-Tiberiu Bociat and Amir Ali Azhari
+Students: Daniel-Tiberiu Bociat and Amir-Ali Azhari
 
 This project was done for the Software Engineering Fundamentals laboratory - The Polytechnic University of Timisoara, year 2, faculty of Automation and Computing.
 
