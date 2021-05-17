@@ -28,12 +28,12 @@ def depositmoney(request):
                 obj.account_value = request.user.investor.account_value + amount
                 try:
                     obj.save()
+                    return redirect('checkfunds')
                 except:
                     return redirect("depositmoney")
             else:
                 messages.error(request, "Please enter a positive value")
                 return redirect('depositmoney')
-            return redirect('checkfunds')
         else:
             messages.error(request, "Please enter a valid amount")
             return redirect("depositmoney")

@@ -40,7 +40,7 @@ class User(AbstractBaseUser):
 
     REQUIRED_FIELDS = []
 
-    object = MyAccountManager()
+    objects = MyAccountManager()
 
     def __str__(self):
         return self.email
