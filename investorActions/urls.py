@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from authentication import views as aut
 
 urlpatterns = [
     path('homeinvestor/', views.homeinvestor, name='homeinvestor'),

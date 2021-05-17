@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.template import Context, loader
 from .forms import DepositFunds, WithdrawFunds, BuySellStock
-from authentication.models import Investor, Stock, Company, AcquiredStock
+from authentication.models import *
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from authentication.decorators import allowed_users, unauthenticated_user
+from authentication.decorators import allowed_users
 from django.contrib import messages
 
 
@@ -114,8 +112,6 @@ def buyshares(request):
                 obj = AcquiredStock.objects.get(investors=request.user.investor, stock=stock)
                 obj.quantity = obj.quantity + quantity
                 obj.save()
-
-            print(stock.buy_price)
 
             request.user.investor.funds = request.user.investor.funds - quantity * stock.buy_price
             request.user.investor.save()

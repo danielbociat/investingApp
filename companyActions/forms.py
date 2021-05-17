@@ -1,7 +1,6 @@
-from authentication.models import User, Investor, Stock, AcquiredStock
+from authentication.models import *
 from django import forms
-from django.db import models
-import itertools
+
 
 class RegisterStock(forms.ModelForm):
     buy_price = forms.DecimalField(max_digits=19, decimal_places=2)

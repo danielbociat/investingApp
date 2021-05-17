@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-from django.conf import settings
-
 # Create your models here.
 
 
@@ -70,7 +68,7 @@ class Investor(models.Model):
         return self.first_name + " " + self.last_name
 
     def validFunds(self):
-        return len(str(self.funds))<=19 and self.funds>=0
+        return len(str(self.funds)) <= 19 and self.funds >= 0
 
 
 class Company(models.Model):
@@ -84,7 +82,6 @@ class Company(models.Model):
 class Stock(models.Model):
     company = models.OneToOneField(Company,on_delete=models.CASCADE, primary_key=True)
     available_quantity = models.DecimalField(verbose_name="available quantity", max_digits=19, decimal_places=2, default=0)
-    #name = models.CharField(verbose_name="name", max_length=6, default="XXXXXX", unique=True)
     buy_price = models.DecimalField(verbose_name="buy price", max_digits=19, decimal_places=2)
     sell_price = models.DecimalField(verbose_name="sell price", max_digits=19, decimal_places=2)
 
@@ -92,10 +89,10 @@ class Stock(models.Model):
         return self.company.company_name
 
     def validPrice(self):
-        return len(str(self.sell_price))<=19 and self.sell_price>=0 and len(str(self.buy_price))<=19 and self.buy_price>=0
+        return len(str(self.sell_price)) <= 19 and self.sell_price >= 0 and len(str(self.buy_price)) <= 19 and self.buy_price >= 0
 
     def validQuantity(self):
-        return len(str(self.available_quantity))<=19 and self.available_quantity>=0
+        return len(str(self.available_quantity)) <= 19 and self.available_quantity >= 0
 
 
 class AcquiredStock(models.Model):
@@ -104,6 +101,4 @@ class AcquiredStock(models.Model):
     investors = models.ForeignKey(Investor, on_delete=models.SET_NULL, null=True)
 
     def validQuantity(self):
-        return len(str(self.quantity))<=19 and self.quantity>=0
-
-
+        return len(str(self.quantity)) <= 19 and self.quantity >= 0
