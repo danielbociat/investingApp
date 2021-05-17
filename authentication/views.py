@@ -35,6 +35,13 @@ def register_investor(request):
             user = authenticate(email=email, password=raw_password)
 
             return redirect('login')
+        else:
+            if formUser.cleaned_data.get('password1') != formUser.cleaned_data.get('password2'):
+                messages.error(request, "Passwords must match")
+            else:
+                messages.error(request, "Email already taken")
+
+            return redirect('registerUser')
     else:
         formUser = RegisterUserForm(request.POST)
         formInvestor = RegisterInvestorForm(request.POST)
@@ -67,8 +74,14 @@ def register_company(request):
             raw_password = formUser.cleaned_data.get('password1')
             user = authenticate(email=email, password=raw_password)
 
-            #login(request, user)
             return redirect('login')
+        else:
+            if formUser.cleaned_data.get('password1') != formUser.cleaned_data.get('password2'):
+                messages.error(request, "Passwords must match")
+            else:
+                messages.error(request, "Email already taken")
+
+            return redirect('registerCompany')
     else:
         formUser = RegisterUserForm(request.POST)
         formCompany = RegisterCompanyForm(request.POST)
