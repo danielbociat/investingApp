@@ -1,6 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect
-from authentication.models import Investor, Company, User
+from authentication.models import *
 
 
 def unauthenticated_user(view_func):

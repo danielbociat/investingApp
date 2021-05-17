@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.template import Context, loader
+from django.template import loader
 
-from authentication.models import Stock, Company, User
+from authentication.models import *
 
 from companyActions.forms import AddRemoveStock
 from django.contrib.auth.decorators import login_required
-from authentication.decorators import allowed_users, unauthenticated_user
+from authentication.decorators import allowed_users
 from django.contrib import messages
 # Create your views here.
 
@@ -16,6 +16,7 @@ from django.contrib import messages
 def homecompany(request):
     template = loader.get_template("companyActions/homecompany.html")
     return HttpResponse(template.render())
+
 
 @login_required(login_url='login')
 @allowed_users("company")
@@ -41,6 +42,7 @@ def addshares(request):
         AddStockForm = AddRemoveStock(request.POST)
 
     return render(request, template, {'formAddStock': AddStockForm})
+
 
 @login_required(login_url='login')
 @allowed_users("company")

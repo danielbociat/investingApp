@@ -1,7 +1,6 @@
-from authentication.models import User, Investor, Stock, AcquiredStock
+from authentication.models import *
 from django import forms
-from django.db import models
-import itertools
+
 
 class DepositFunds(forms.Form):
     amount = forms.DecimalField(max_digits=19, decimal_places=2)
@@ -32,5 +31,3 @@ class BuySellStock(forms.ModelForm):
     class Meta:
         model = AcquiredStock
         fields = ("stock", "quantity")
-
-
